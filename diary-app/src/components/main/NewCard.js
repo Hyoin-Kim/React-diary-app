@@ -1,6 +1,6 @@
-import React from 'react';
-import Styled from 'styled-components';
-import { createCardData } from '../../lib/api';
+import React from "react";
+import Styled from "styled-components";
+import { createCardData } from "../../lib/api";
 
 const NewCardWrap = Styled.div`
   .card {
@@ -22,39 +22,41 @@ const NewCardWrap = Styled.div`
     }
   }
 `;
+
 const getDate = () => {
-    const now =new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1 + "";
-    const day = now.getDate() + "";
-    const monthF = month.length < 2 ? 0+month : month;
-    const dayF = day.length < 2 ? 0+day : day;
-    return parseInt(year +monthF +dayF);
-}
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1 + "";
+  const day = now.getDate() + "";
+  const monthF = month.length < 2 ? 0 + month : month;
+  const dayF = day.length < 2 ? 0 + day : day;
+  return parseInt(year + monthF + dayF);
+};
 
-const NewCard = (id,rawData,year,month,setUserData) => {
-    const createCard = async () => {
-        const cardForm = {
-            id: id,
-            data : getDate(),
-            title: "",
-            image: "",
-            tags: [],
-            summary:"",
-            text: "",
-        }
-        rawData[year][month].push(cardForm);
-        const data = await createCardData(rawData);
-        data[year] && setUserData(data[year][month]);
-    }
-    return(
-        <NewCardWrap>
-            <div className="card" onClick={createCard}>
-                <p className="card__text">+ 추가해 주세요</p>
-            </div>
-        </NewCardWrap>
-    )
+const NewCard = ({ id, year, month, rawData, setUserData }) => {
+  const createCard = async () => {
+    const cardForm = {
+      date: getDate(),
+      id: id,
+      title: "",
+      image: "",
+      weather: "",
+      tags: [],
+      summary: "",
+      text: "",
+    };
+    rawData[year][month].push(cardForm);
+    const data = await createCardData(rawData);
+    data[year] && setUserData(data[year][month]);
+  };
 
-}
+  return (
+    <NewCardWrap>
+      <div className="card" onClick={createCard}>
+        <div className="card__text">+ 추가해 주세요</div>
+      </div>
+    </NewCardWrap>
+  );
+};
 
 export default NewCard;

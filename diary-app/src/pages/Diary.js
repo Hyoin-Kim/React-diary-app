@@ -1,27 +1,20 @@
-import React from "react";
-import Card from "../components/diary/Card";
-import { getCardData } from "../lib/api";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { getCardData } from "../lib/api";
+import Card from "../components/diary/Card";
 
 const Diary = ({ year, month, match }) => {
-  const id = match.params.id;
-  const [diaryData, setDiaryData] = React.useState(null);
-  const [rawData, setRawData] = React.useState(null);
+  //const id = match.params.id;
+  console.log(match);
+  //const [diaryData, setDiaryData] = useState(null);
+  //const [rawData, setRawData] = useState(null);
 
-  React.useEffect(() => {
-    (async () => {
-      const data = await getCardData();
-      data[year] &&
-        setDiaryData(data[year][month].find((el) => el.id === parseInt(id)));
-      setRawData(data);
-    })();
-  }, [id]);
+  return <div>diary page</div>
 
-  return (
-    diaryData && (
-      <Card data={diaryData} rawData={rawData} year={year} month={month} />
-    )
-  );
+
+
+
+
 };
 
 export default withRouter(Diary);
